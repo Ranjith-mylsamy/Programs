@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Passion+One&display=swap');
+:root{
+    --red:#FF0000;
+    --grey:#746868;
+    --white:#fff;
+    --green:limegreen;
+}
+*{
+    font-family: 'Passion One', cursive;
+    font-family: 'DM Sans', sans-serif;
+    margin:0;
+    border:none;
+    text-transform:capitalize;
+    text-decoration: none;
+    padding:0;
+    box-sizing: border-box;
+    transition: all .2s linear;
+}
+::selection{
+    background:#FF0000;
+    color: #fff;
+}
+.head{
+    margin:1rem 0;
+}
+.demo {
+    color:var(--red);
+}
+.box{
+    border: 2px solid;
+    border-radius:40px;
+    outline:none;
+    width:20%;
+    margin:1rem;
+    padding:0.8rem;
+    margin-bottom:1rem;
+}
+.btn{
+    width:20%;
+    margin:1rem;
+    font-size:2rem;
+}
