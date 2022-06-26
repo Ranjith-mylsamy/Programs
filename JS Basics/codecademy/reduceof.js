@@ -5,4 +5,4 @@ const newSum = newNumbers.reduce((accumulator,currentValue)=>
   console.log('The value of currentVaalue: ',currentValue);
   return accumulator+currentValue;
 },10);
-console.log(newSum)
+console.log(newSum);
