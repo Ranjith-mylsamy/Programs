@@ -33,7 +33,7 @@ int main()
             {
                 mul[i][j]+=a[i][k]*b[k][j];
             }
-        }//SAGIYE EN ILAM SAGIYE UN NINAIVUGLAL NEE THURATHIRIYE VAZHIYE UYIR VAZHIYE UN NINIVUGAL ENNAI THURATHRIYE YAARO MANATHILE YENO 
+        }
     }
     printf("The array elements are:\n");
     for(i=0;i<r;i++)

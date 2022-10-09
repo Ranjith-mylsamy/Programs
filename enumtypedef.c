@@ -1,6 +1,7 @@
 #include <stdio.h>
 typedef char* ptr;
 #define PTR char*
+#define CBE "coimbatore"
 int main()
 {
     ptr a, b, c;
@@ -11,5 +12,6 @@ int main()
     printf("sizeof x:%zu\n" ,sizeof(x) );
     printf("sizeof y:%zu\n" ,sizeof(y) );
     printf("sizeof z:%zu\n" ,sizeof(z) );
+    printf(CBE);
     return 0;
 }
