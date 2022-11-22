@@ -1,3 +1,9 @@
+/*Terminologies used:
+pr=prime
+d=decrypt
+e=encrypt
+phi=Euler totient formula
+gcd=greatest common divisor*/
 #include<stdio.h>
 #include<string.h>
 #include<math.h>
@@ -30,7 +36,7 @@ int gcd(long int num1,long int num2)
 }
 int main()
 {
-    long int p,q,flag,n,phi,i=2,e;
+    long int p,q,flag,n,phi,i=2,e,d,k=1,d_result[100];
     printf("Enter first odd prime numbers\n");
     scanf("%d",&p);
     flag=prime(p);
@@ -51,6 +57,7 @@ int main()
     n=p*q;
     phi=(p-1)*(q-1);
     //printf("%ld",phi);
+    //e value should not be greater than phi
     for(i;i<phi;i++)
     {
         if(phi%i==0)
@@ -60,8 +67,30 @@ int main()
         flag=prime(i);
         if(flag == 1 && i!=p && i != q)
         {
-            e=i;
+            if(gcd(e,phi)==1)
+            {
+                e=i;
+            }
         }
     }
     printf("the value pf e is:%ld\n",e);
+    //value of d
+    while(1)
+    {
+        k = k + phi;
+        if(k % e == 0)
+        {
+            d=k/e;
+            d_result[1]=d;
+            break;
+        }
+    }
+    //d*e * mod(phi)=1
+    d*=e;
+    int checker=fmod(d,phi);
+    if (checker==1)
+    {
+        d = d_result[1];
+        printf("the value of d is:%ld",d);
+    }
 }
