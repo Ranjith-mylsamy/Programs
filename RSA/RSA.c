@@ -19,7 +19,7 @@ int prime(long int pr)
 }
 int main()
 {
-    int p,q,flag;
+    long int p,q,flag,n,phi;
     printf("Enter first prime numbers\n");
     scanf("%d",&p);
     flag=prime(p);
@@ -36,4 +36,9 @@ int main()
         printf("It is not a prime number\n");
         exit(1);
     }
+    //formula
+    n=p*q;
+    phi=(p-1)*(q-1);
+    //printf("%ld",phi);
+    
 }
