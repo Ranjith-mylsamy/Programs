@@ -93,4 +93,9 @@ int main()
         d = d_result[1];
         printf("the value of d is:%ld",d);
     }
+    //public key={e,n}
+    printf("The public key is:{%ld,%ld}\n",e,n);
+    //private kwy={d,n}
+    printf("The private key is:{%ld,%ld}\n",d,n);
+
 }
