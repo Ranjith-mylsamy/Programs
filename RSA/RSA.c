@@ -30,7 +30,7 @@ int gcd(long int num1,long int num2)
 }
 int main()
 {
-    long int p,q,flag,n,phi,e=2;
+    long int p,q,flag,n,phi,i=2,e;
     printf("Enter first odd prime numbers\n");
     scanf("%d",&p);
     flag=prime(p);
@@ -51,12 +51,17 @@ int main()
     n=p*q;
     phi=(p-1)*(q-1);
     //printf("%ld",phi);
-    for(e;e<phi;e++)
+    for(i;i<phi;i++)
     {
-        if(gcd(e,phi)==1)
+        if(phi%i==0)
         {
-            break;
+            continue;
+        }
+        flag=prime(i);
+        if(flag == 1 && i!=p && i != q)
+        {
+            e=i;
         }
     }
-    printf("the value of e is:%ld",e);
+    printf("the value pf e is:%ld\n",e);
 }
