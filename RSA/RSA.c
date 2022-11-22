@@ -97,5 +97,20 @@ int main()
     printf("The public key is:{%ld,%ld}\n",e,n);
     //private kwy={d,n}
     printf("The private key is:{%ld,%ld}\n",d,n);
-
+    
+        double msg = 12;
+ 
+    printf("Message data = %lf", msg);
+ 
+    // Encryption c = (msg ^ e) % n
+    double c = pow(msg, e);
+    c = fmod(c, n);
+    printf("\nEncrypted data = %lf", c);
+ 
+    // Decryption m = (c ^ d) % n
+    double m = pow(c, d);
+    m = fmod(m, n);
+    printf("\nOriginal Message Sent = %lf", m);
+ 
+    return 0;
 }
