@@ -12,6 +12,7 @@ using namespace std;
 string getdate();
 void updatedatabase(std::string,int gym,int cpp,int streak);
 std::string fetchstreakfromdatabase();
+container fetchdatafromdatabase();
 
 //function definition
 std::string getdate()
@@ -69,6 +70,48 @@ std::string fetchstreakfromdatabase()
     }
 }
 
+container fetchdatafromdatabase()
+{
+    std::string gym_str_end,gym_str,cpp_str,cpp_str_end;
+
+    ifstream database("database.txt");
+    if(!database)
+    {
+        cout<<"Error: Unable to open file."<<endl;
+    }
+
+    while(getline(database,gym_str))
+    {
+        gym_str_end = gym_str;
+    }
+
+    int position = gym_str_end.find("GYM DAYS =");
+    if(position != std::string::npos)
+    {
+        data.gym = stoi(gym_str_end.substr(position + 10));
+    }
+    else
+    {
+        cout<<"GYM string not found"<<endl;
+    }
+
+    while(getline(database,cpp_str))
+    {
+        cpp_str_end = cpp_str;
+    }
+
+    int position = cpp_str_end.find("C++ DAYS =");
+    if(position != std::string::npos)
+    {
+        data.gym = stoi(cpp_str_end.substr(position + 10));
+    }
+    else
+    {
+        cout<<"C++ string not found"<<endl;
+    }
+    return data;
+}
+
 //driver function
 int main () {
     int gym, cpp, streak;
@@ -78,6 +121,13 @@ int main () {
         gym     = 0;
         cpp     = 0;
         streak  = 0;
+    }
+    else
+    {
+        streak  = stoi(fetchstreakfromdatabase()); //converting string to integer
+        data    = fetchdatafromdatabase();
+        gym     = data.gym;
+        cpp     = data.cpp;
     }
     char ans[1];
     int result;
