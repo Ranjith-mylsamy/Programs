@@ -3,6 +3,7 @@
 #include<string>
 #include<ctime>
 #include<fstream>
+#include<sstream>
 #include<custom_header>
 
 //Namespaces
@@ -10,9 +11,70 @@ using namespace std;
 
 //function prototypes
 string getdate();
-void updatedatabase(std::string,int gym,int cpp,int streak);
+void updatedatabase(std::string date,int gym,int cpp,int streak);
 std::string fetchstreakfromdatabase();
 container fetchdatafromdatabase();
+int calculation();
+
+//driver function
+int main () {
+    //Variables
+    int gym, cpp, streak;
+    std::string date;
+    std::string reset = fetchstreakfromdatabase();
+
+    if(reset == "0")
+    {
+        gym     = 0;
+        cpp     = 0;
+        streak  = 0;
+    }
+    else
+    {
+        streak  = stoi(fetchstreakfromdatabase()); //converting string to integer
+        data    = fetchdatafromdatabase();
+        gym     = data.gym;
+        cpp     = data.cpp;
+    }
+    char ans[1];
+
+    cout<<"Have you gone to gym ?"<<"\n";
+    cout<<"Press Y/y to confirm or Press N/n to cancel"<<"\n";
+    cin>>ans;
+    if(ans == "Y" || "y")
+    {
+        gym++;
+        streak++;
+        date = getdate();
+        updatedatabase(date,gym,cpp,streak);
+    }
+    else if (ans == "N" || "n")
+    {
+        cout<<"Have you studied C++ for an hour ?"<<"\n";
+        cout<<"Press Y/y to confirm or Press N/n to cancel"<<"\n";
+        cin>>ans;
+
+        if (ans == "Y" || "y")
+        {
+            cpp++;
+            date = getdate();
+            streak++;
+            updatedatabase(date,gym,cpp,streak);
+        }
+        else
+        {
+            streak = 0;
+            date = getdate();
+            updatedatabase(date,gym,cpp,streak);
+        }
+    }
+    else
+    {
+        cout<<"Invalid input"<<"\n";
+    }
+
+  return 0;
+}
 
 //function definition
 std::string getdate()
@@ -112,63 +174,60 @@ container fetchdatafromdatabase()
     return data;
 }
 
-//driver function
-int main () {
-    int gym, cpp, streak;
-    std::string reset = fetchstreakfromdatabase();
-    if(reset == "0")
+int calculation()
+{
+    std::string prev_line,EOL,line;
+    int n_prev_line,n_EOL;
+
+    ifstream database("database.txt");
+
+    while(getline(database,line))
     {
-        gym     = 0;
-        cpp     = 0;
-        streak  = 0;
+        prev_line = EOL;
+        EOL       = line;
+    }
+
+    //I am finding streak in previous line
+    int position = prev_line.find("DATE =");
+    if(position != std::string::npos)
+    {
+        n_prev_line = stoi(prev_line.substr(position + 6));
     }
     else
     {
-        streak  = stoi(fetchstreakfromdatabase()); //converting string to integer
-        data    = fetchdatafromdatabase();
-        gym     = data.gym;
-        cpp     = data.cpp;
+        cout<<"DATE = string not found"<<endl;
     }
-    char ans[1];
-    int result;
 
-    cout<<"Have you gone to gym ?"<<"\n";
-    cout<<"Press Y/y to confirm or Press N/n to cancel"<<"\n";
-    cin>>ans;
-    if(ans == "Y" || "y")
+    //I am finding streak in end of file (i.e:last line)
+    int position = EOL.find("DATE =");
+    if(position != std::string::npos)
     {
-        gym++;
-    }
-    else if (ans == "N" || "n")
-    {
-        cout<<"Have you studied C++ for an hour ?"<<"\n";
-        cout<<"Press Y/y to confirm or Press N/n to cancel"<<"\n";
-        cin>>ans;
-
-        if (ans == "Y" || "y")
-        {
-            cpp++;
-            std::string date = getdate();
-            std::cout << date << "\n";
-
-            if(result == 1)
-            {
-                streak++;
-            }
-            else
-            {
-                streak = 0;
-            }
-        }
-        else
-        {
-            streak = 0;
-        }
+        n_EOL = stoi(EOL.substr(position + 6));
     }
     else
     {
-        cout<<"Invalid input"<<"\n";
+        cout<<"DATE = string not found"<<endl;
     }
 
-  return 0;
+    if(n_EOL > n_prev_line)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+istringstream iss(str);
+string word;
+int wordIndex = 0;
+string dateValue;
+
+while (iss >> word) {
+    wordIndex++;
+    if (wordIndex == 2) {  // second word
+        dateValue = word;
+        break;
+    }
 }
