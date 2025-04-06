@@ -83,7 +83,7 @@ std::string getdate()
     struct tm datetime = *localtime(&timestamp);
     char output[50];
 
-    strftime(output, 50, "%d %B %Y %A", &datetime);
+    strftime(output, 50, "%d %m %Y %A", &datetime);
 
     return std::string(output);
 }
@@ -177,7 +177,10 @@ container fetchdatafromdatabase()
 int calculation()
 {
     std::string prev_line,EOL,line;
-    int n_prev_line,n_EOL;
+    std::string n_prev_line,n_EOL;
+    struct tm date_1,date_2;
+    time_t now;
+    time_t before;
 
     ifstream database("database.txt");
 
@@ -191,43 +194,62 @@ int calculation()
     int position = prev_line.find("DATE =");
     if(position != std::string::npos)
     {
-        n_prev_line = stoi(prev_line.substr(position + 6));
+        istringstream iss(prev_line.substr(position + 6));
+        string word;
+        int wordIndex = 0;
+        iss >> std::ws;
+        while (iss >> word) {
+            wordIndex++;
+            if (wordIndex == 1) {  // first word
+                n_prev_line = word;
+                break;
+            }
+        }
+
     }
     else
     {
         cout<<"DATE = string not found"<<endl;
     }
-
+    
     //I am finding streak in end of file (i.e:last line)
     int position = EOL.find("DATE =");
     if(position != std::string::npos)
     {
-        n_EOL = stoi(EOL.substr(position + 6));
+        istringstream iss(EOL.substr(position + 6));
+        string word;
+        int wordIndex = 0;
+        iss >> std::ws;
+        while (iss >> word) {
+            wordIndex++;
+            if (wordIndex == 1) {  // first word
+                n_EOL = word;
+                break;
+            }
+        }
+
     }
     else
     {
         cout<<"DATE = string not found"<<endl;
     }
 
-    if(n_EOL > n_prev_line)
+    date_1.tm_mday = stoi(n_prev_line.substr(0,2));
+    date_1.tm_wday = stoi(n_prev_line.substr(3,2))- 1;
+    date_1.tm_year = stoi(n_prev_line.substr(6,4))- 1900;
+    before = mktime(&date_1);
+
+    date_2.tm_mday = stoi(n_EOL.substr(0,2));
+    date_2.tm_wday = stoi(n_EOL.substr(3,2)) - 1;
+    date_2.tm_year = stoi(n_EOL.substr(6,4)) - 1900;
+    now = mktime(&date_2);
+
+    if(difftime(now,before) < 0)
     {
         return 1;
     }
     else
     {
         return 0;
-    }
-}
-
-istringstream iss(str);
-string word;
-int wordIndex = 0;
-string dateValue;
-
-while (iss >> word) {
-    wordIndex++;
-    if (wordIndex == 2) {  // second word
-        dateValue = word;
-        break;
     }
 }
