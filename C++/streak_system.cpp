@@ -43,10 +43,20 @@ int main () {
     cin>>ans;
     if(ans == "Y" || "y")
     {
-        gym++;
-        streak++;
-        date = getdate();
-        updatedatabase(date,gym,cpp,streak);
+        if(calculation() == 1)
+        {
+            gym++;
+            streak++;
+            date    = getdate();
+            updatedatabase(date,gym,cpp,streak);
+        }
+        else
+        {
+            gym     = 0;
+            streak  = 0;
+            date    = getdate();
+            updatedatabase(date,gym,cpp,streak);
+        }
     }
     else if (ans == "N" || "n")
     {
@@ -56,15 +66,19 @@ int main () {
 
         if (ans == "Y" || "y")
         {
-            cpp++;
-            date = getdate();
-            streak++;
-            updatedatabase(date,gym,cpp,streak);
+            if(calculation() == 1)
+            {
+                cpp++;
+                date = getdate();
+                streak++;
+                updatedatabase(date,gym,cpp,streak);
+            }
         }
         else
         {
             streak = 0;
-            date = getdate();
+            cpp    = 0;
+            date   = getdate();
             updatedatabase(date,gym,cpp,streak);
         }
     }
