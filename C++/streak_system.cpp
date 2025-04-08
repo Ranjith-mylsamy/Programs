@@ -22,6 +22,7 @@ int main () {
     int gym, cpp, streak;
     std::string date;
     std::string reset = fetchstreakfromdatabase();
+    container data;
 
     if(reset == "0")
     {
@@ -36,12 +37,12 @@ int main () {
         gym     = data.gym;
         cpp     = data.cpp;
     }
-    char ans[1];
+    char ans;
 
     cout<<"Have you gone to gym ?"<<"\n";
     cout<<"Press Y/y to confirm or Press N/n to cancel"<<"\n";
     cin>>ans;
-    if(ans == "Y" || "y")
+    if(ans == 'Y' || 'y')
     {
         if(calculation() == 1)
         {
@@ -58,13 +59,13 @@ int main () {
             updatedatabase(date,gym,cpp,streak);
         }
     }
-    else if (ans == "N" || "n")
+    else if (ans == 'N' || 'n')
     {
         cout<<"Have you studied C++ for an hour ?"<<"\n";
         cout<<"Press Y/y to confirm or Press N/n to cancel"<<"\n";
         cin>>ans;
 
-        if (ans == "Y" || "y")
+        if (ans == 'Y' || 'y')
         {
             if(calculation() == 1)
             {
@@ -144,6 +145,7 @@ std::string fetchstreakfromdatabase()
     {
         cout<<"Streak not found"<<endl;
     }
+    return "0";
 }
 
 container fetchdatafromdatabase()
@@ -179,7 +181,7 @@ container fetchdatafromdatabase()
     int position = cpp_str_end.find("C++ DAYS =");
     if(position != std::string::npos)
     {
-        data.gym = stoi(cpp_str_end.substr(position + 10));
+        data.cpp = stoi(cpp_str_end.substr(position + 10));
     }
     else
     {
