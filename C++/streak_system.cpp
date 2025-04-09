@@ -4,7 +4,7 @@
 #include<ctime>
 #include<fstream>
 #include<sstream>
-#include<custom_header>
+#include"custom_header.h"
 
 //Namespaces
 using namespace std;
@@ -151,7 +151,8 @@ std::string fetchstreakfromdatabase()
 container fetchdatafromdatabase()
 {
     std::string gym_str_end,gym_str,cpp_str,cpp_str_end;
-
+    container data;
+    
     ifstream database("database.txt");
     if(!database)
     {
@@ -178,7 +179,7 @@ container fetchdatafromdatabase()
         cpp_str_end = cpp_str;
     }
 
-    int position = cpp_str_end.find("C++ DAYS =");
+    position = cpp_str_end.find("C++ DAYS =");
     if(position != std::string::npos)
     {
         data.cpp = stoi(cpp_str_end.substr(position + 10));
@@ -229,7 +230,7 @@ int calculation()
     }
     
     //I am finding streak in end of file (i.e:last line)
-    int position = EOL.find("DATE =");
+    position = EOL.find("DATE =");
     if(position != std::string::npos)
     {
         istringstream iss(EOL.substr(position + 6));
